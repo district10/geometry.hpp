@@ -10,6 +10,7 @@ TEST_CASE("operator<<")
     mapbox::geometry::empty empty;
     mapbox::geometry::point<double> point{10, 20};
     mapbox::geometry::point<double> point2{30, 40};
+    mapbox::geometry::point<double> pointz{30, 40, 50};
     mapbox::geometry::line_string<double> lineString{point, point2};
     mapbox::geometry::polygon<double> polygon{mapbox::geometry::linear_ring<double>{point, point2}};
     mapbox::geometry::multi_point<double> multiPoint{point, point2};
@@ -21,6 +22,7 @@ TEST_CASE("operator<<")
     stream << null << std::endl;
     stream << empty << std::endl;
     stream << point << std::endl;
+    stream << pointz << std::endl;
     stream << lineString << std::endl;
     stream << polygon << std::endl;
     stream << multiPoint << std::endl;
@@ -39,6 +41,9 @@ TEST_CASE("operator<<")
 
     std::getline(stream, line);
     CHECK(line == std::string("[10,20]"));
+
+    std::getline(stream, line);
+    CHECK(line == std::string("[30,40,50]"));
 
     std::getline(stream, line);
     CHECK(line == std::string("[[10,20],[30,40]]"));

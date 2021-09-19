@@ -14,11 +14,21 @@ std::ostream& operator<<(std::ostream& os, const empty&)
     return os << "[]";
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wfloat-equal"
+
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const point<T>& point)
 {
-    return os << "[" << point.x << "," << point.y << "]";
+    os << "[" << point.x << "," << point.y;
+    if (point.z != 0) {
+        os << "," << point.z;
+    }
+    os << "]";
+    return os;
 }
+
+#pragma GCC diagnostic pop
 
 template <typename T, template <class, class...> class C, class... Args>
 std::ostream& operator<<(std::ostream& os, const C<T, Args...>& cont)

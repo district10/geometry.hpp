@@ -9,16 +9,17 @@ struct point
     using coordinate_type = T;
 
     constexpr point()
-        : x(), y()
+        : x(), y(), z()
     {
     }
-    constexpr point(T x_, T y_)
-        : x(x_), y(y_)
+    constexpr point(T x_, T y_, T z_ = 0)
+        : x(x_), y(y_), z(z_)
     {
     }
 
     T x;
     T y;
+    T z;
 };
 
 #pragma GCC diagnostic push
@@ -27,7 +28,7 @@ struct point
 template <typename T>
 constexpr bool operator==(point<T> const& lhs, point<T> const& rhs)
 {
-    return lhs.x == rhs.x && lhs.y == rhs.y;
+    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
 }
 
 #pragma GCC diagnostic pop

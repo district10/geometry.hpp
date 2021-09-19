@@ -16,14 +16,16 @@ box<T> envelope(G const& geometry)
     T min_t = limits::has_infinity ? -limits::infinity() : limits::min();
     T max_t = limits::has_infinity ? limits::infinity() : limits::max();
 
-    point<T> min(max_t, max_t);
-    point<T> max(min_t, min_t);
+    point<T> min(max_t, max_t, max_t);
+    point<T> max(min_t, min_t, min_t);
 
     for_each_point(geometry, [&](point<T> const& point) {
         if (min.x > point.x) min.x = point.x;
         if (min.y > point.y) min.y = point.y;
+        if (min.z > point.z) min.z = point.z;
         if (max.x < point.x) max.x = point.x;
         if (max.y < point.y) max.y = point.y;
+        if (max.z < point.z) max.z = point.z;
     });
 
     return box<T>(min, max);
